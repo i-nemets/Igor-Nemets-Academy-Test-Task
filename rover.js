@@ -4,6 +4,7 @@ const map = [
 ]
 
 function calculateRoverPath(map) {
+  fs = require("fs")
   const start = "[0][0]"
   const end = `[${map.length - 1}][${map[0].length - 1}]`
   const costStep = 1
@@ -101,9 +102,17 @@ function calculateRoverPath(map) {
     path.unshift(start)
     const steps = path.length - 1
     const fuel = costs[end]
-    console.log("path", path)
-    console.log("steps: ", steps)
-    console.log("fuel: ", fuel)
+    let pathStr = path.join("->")
+
+    let res = `${pathStr}
+steps: ${steps}
+fuel: ${fuel}`
+
+    fs.writeFile("path-plan.txt", res, function (err) {
+      if (err) {
+        return err
+      }
+    })
   }
 
   return saveRoverPath(resultPath, costs, start, end)
