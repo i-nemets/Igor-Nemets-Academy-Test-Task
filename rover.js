@@ -1,13 +1,15 @@
 const map = [
-  [1, 5, 2],
-  [2, 5, 7],
-  [2, 3, 2],
+  [0, 4],
+  [1, 3],
 ]
-const costStep = 1
-const start = "[0][0]"
-const end = `[${map.length - 1}][${map[0].length - 1}]`
 
 function calculateRoverPath(map) {
+  const start = "[0][0]"
+  const end = `[${map.length - 1}][${map[0].length - 1}]`
+  const costStep = 1
+  let curStep = end
+  let resultPath = []
+
   function calcFuel(current, next) {
     return Math.abs(current - next) + costStep
   }
@@ -29,6 +31,8 @@ function calculateRoverPath(map) {
     }
     return newMap
   }
+
+  let newMap = convertMap(map)
 
   function shortPath(map, start) {
     const costs = {}
@@ -74,10 +78,39 @@ function calculateRoverPath(map) {
 
     return lowestPoint
   }
-  console.log(shortPath(convertMap(map), start))
+
+  let costs = shortPath(newMap, start)
+
+  function pathRestoration(map, costs, start, end) {
+    Object.keys(map).forEach((point) => {
+      if (curStep in map[point]) {
+        if (costs[curStep] === costs[point] + map[point][curStep]) {
+          resultPath.unshift(point)
+          curStep = point
+          pathRestoration(map, costs, start, end)
+        }
+      }
+    })
+    return
+  }
+
+  pathRestoration(newMap, costs, start, end)
+
+  function saveRoverPath(path, costs, start, end) {
+    path.push(end)
+    path.unshift(start)
+    const steps = path.length - 1
+    const fuel = costs[end]
+    console.log("path", path)
+    console.log("steps: ", steps)
+    console.log("fuel: ", fuel)
+  }
+
+  return saveRoverPath(resultPath, costs, start, end)
 }
 
 calculateRoverPath(map)
+
 module.exports = {
   calculateRoverPath,
 }
