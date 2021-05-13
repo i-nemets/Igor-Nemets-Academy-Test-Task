@@ -1,8 +1,3 @@
-const map = [
-  [0, 4],
-  [1, 3],
-]
-
 function calculateRoverPath(map) {
   fs = require("fs")
   const start = "[0][0]"
@@ -117,8 +112,6 @@ fuel: ${fuel}`
 
   return saveRoverPath(resultPath, costs, start, end)
 }
-
-calculateRoverPath(map)
 
 module.exports = {
   calculateRoverPath,
