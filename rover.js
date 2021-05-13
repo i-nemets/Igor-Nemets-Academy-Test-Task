@@ -53,7 +53,7 @@ function calculateRoverPath(map) {
         }
       })
       processed.push(point)
-      point = findePointLowestCost(costs, processed, end)
+      point = findePointLowestCost(costs, processed)
     }
 
     return costs
