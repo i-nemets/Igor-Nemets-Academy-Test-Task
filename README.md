@@ -175,12 +175,3 @@ Henry-Cavill-Academy-Test-Task
     rover.js
     README.md
 ```
-
-### Если вы нашли ошибку
-Чтобы поправить ошибку, сделайте мерж реквест в этот репозиторий с описанием ошибки. Assignee реквеста SyberryAcademy
-
-
-
-
-
-
